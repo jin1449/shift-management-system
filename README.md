@@ -2,7 +2,7 @@
 A shift management system developed using Google Apps Script, Google Sheets and LINE Messaging API.
 
 ## Overview
-An independently developed shift management system designed to improve shift request and scheduling operations at a small pet hotel.
+An independently developed shift management system designed to improve shift request and scheduling operations at a small pet hotel business.
 
 ## Background
 Through my part-time work at a pet hotel, I noticed inefficiencies in the traditional shift request process, where staff submitted their availability manually and schedules were managed by the owner.
