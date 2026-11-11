@@ -1,3 +1,4 @@
+
 function doGet() {
   return HtmlService.createHtmlOutput(
     "Pet Hotel Shift Manager is running!"
@@ -286,26 +287,29 @@ function sortShiftRequestsByDate() {
 
 
 function syncConfirmedSchedule() {
-  const source = SpreadsheetApp.getActiveSpreadsheet()
-    .getSheetByName("Shift Requests");
+  // Original spreadsheet
+  const sourceSS = SpreadsheetApp.getActiveSpreadsheet();
+  const source = sourceSS.getSheetByName("Shift Requests");
+  const staffSheet = sourceSS.getSheetByName("Staff");
 
+  // Destination spreadsheet
   const destinationId = "1r4bzsaPRTIsdJBtkyqjxaFugvkq7yoh-RiFHfvy437k";
-  const destination = SpreadsheetApp.openById(destinationId)
-    .getSheets()[0];
+  const destinationSS = SpreadsheetApp.openById(destinationId);
 
-  const staffList = SpreadsheetApp.openById(destinationId)
-    .getSheetByName("Staff List");
+  const destination = destinationSS.getSheetByName("シフト確認表");
+  const staffList = destinationSS.getSheetByName("Staff List");
 
-  // Sync approved shifts
+  // Check all required tabs before making changes
+  if (!source || !staffSheet || !destination || !staffList) {
+    throw new Error("Required spreadsheet tab not found.");
+  }
+
+  // Collect approved shifts
+  const output = [];
   const lastRow = source.getLastRow();
 
-  const output = [
-    ["Date", "Start Time", "End Time", "Staff Name"]
-  ];
-
   if (lastRow >= 2) {
-    const rows = source.getRange(2, 1, lastRow - 1, 6)
-      .getValues();
+    const rows = source.getRange(2, 1, lastRow - 1, 6).getValues();
 
     for (const row of rows) {
       if (String(row[5]).trim() === "Approved") {
@@ -314,30 +318,26 @@ function syncConfirmedSchedule() {
     }
   }
 
-  if (destination.getMaxRows() < output.length) {
-    destination.insertRowsAfter(
-      destination.getMaxRows(),
-      output.length - destination.getMaxRows()
-    );
+  // Update シフト確認表, preserving row 1
+  const oldLastRow = destination.getLastRow();
+
+  if (oldLastRow >= 2) {
+    destination.getRange(2, 1, oldLastRow - 1, 4)
+      .clearContent();
   }
 
-  destination.clearContents();
+  if (output.length > 0) {
+    destination.getRange(2, 1, output.length, 4)
+      .setValues(output);
 
-  destination.getRange(1, 1, output.length, 4)
-    .setValues(output);
+    destination.getRange(2, 1, output.length, 1)
+      .setNumberFormat("MM/dd/yyyy");
 
-  if (output.length > 1) {
-    destination.getRange(2, 1, output.length - 1, 1)
-      .setNumberFormat("MM/dd");
-
-    destination.getRange(2, 2, output.length - 1, 2)
+    destination.getRange(2, 2, output.length, 2)
       .setNumberFormat("HH:mm");
   }
 
-  // Sync registered staff names
-  const staffSheet = SpreadsheetApp.getActiveSpreadsheet()
-    .getSheetByName("Staff");
-
+  // Collect registered staff names from original Staff tab
   const staffLastRow = staffSheet.getLastRow();
 
   const staffNames = staffLastRow >= 2
@@ -348,12 +348,22 @@ function syncConfirmedSchedule() {
         .filter(name => name !== "")
     : [];
 
-  staffList.clearContents();
+  const uniqueNames = [...new Set(staffNames)];
+
+  // Update Staff List column A only
+  const oldStaffLastRow = staffList.getLastRow();
+
+  if (oldStaffLastRow >= 2) {
+    staffList.getRange(2, 1, oldStaffLastRow - 1, 1)
+      .clearContent();
+  }
+
   staffList.getRange("A1").setValue("Staff Name");
 
-  if (staffNames.length > 0) {
-    staffList.getRange(2, 1, staffNames.length, 1)
-      .setValues([...new Set(staffNames)].map(name => [name]));
+  if (uniqueNames.length > 0) {
+    staffList.getRange(2, 1, uniqueNames.length, 1)
+      .setValues(uniqueNames.map(name => [name]));
   }
 }
+
 
