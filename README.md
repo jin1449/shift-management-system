@@ -33,17 +33,17 @@ Independently responsible for:
 ### LINE Shift Submission
 Staff can submit their desired working dates and hours through LINE.
 
-<img src="screenshots/line-submission.jpg" width="200">
+<img src="screenshots/line-submission.png" width="200">
 
 ### Shift Requests
 Submitted shift requests are automatically recorded in Google Sheets.
 
-![Shift Requests](screenshots/shift-requests.png)
+<img src="screenshots/shift-requests.png" width="200">
 
 ### Monthly Calendar
 Displays approved shifts in a monthly calendar, allowing staff to easily view their work schedules.
 
-![Monthly Calendar](screenshots/monthly-calendar.png)
+<img src="screenshots/monthly-calendar.png" width="200">
 
 ## Project Status
 Personal development project currently undergoing testing and improvements.
