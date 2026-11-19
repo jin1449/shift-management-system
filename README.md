@@ -33,7 +33,7 @@ Independently responsible for:
 ### LINE Shift Submission
 Staff can submit their desired working dates and hours through LINE.
 
-![LINE Submission](screenshots/line-submission.jpg)
+![LINE Submission](line-submission.jpg)
 
 ### Shift Requests
 Submitted shift requests are automatically recorded in Google Sheets.
