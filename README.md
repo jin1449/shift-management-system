@@ -43,5 +43,7 @@ Submitted shift requests are automatically recorded in Google Sheets.
 ### Monthly Calendar
 Displays approved shifts in a monthly calendar, allowing staff to easily view their work schedules.
 
+![Monthly Calendar](screenshots/monthly-calendar.png)
+
 ## Project Status
 Personal development project currently undergoing testing and improvements.
