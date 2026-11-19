@@ -28,5 +28,20 @@ Independently responsible for:
 - Developing the system
 - Testing and improving features
 
+## Screenshots
+
+### LINE Shift Submission
+Staff can submit their desired working dates and hours through LINE.
+
+![LINE Submission](screenshots/line-submission.png)
+
+### Shift Requests
+Submitted shift requests are automatically recorded in Google Sheets.
+
+![Shift Requests](screenshots/shift-requests.png)
+
+### Monthly Calendar
+Displays approved shifts in a monthly calendar, allowing staff to easily view their work schedules.
+
 ## Project Status
 Personal development project currently undergoing testing and improvements.
