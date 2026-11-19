@@ -38,12 +38,12 @@ Staff can submit their desired working dates and hours through LINE.
 ### Shift Requests
 Submitted shift requests are automatically recorded in Google Sheets.
 
-<img src="screenshots/shift-request.png" width="200">
+<img src="screenshots/shift-request.png" width="300">
 
 ### Monthly Calendar
 Displays approved shifts in a monthly calendar, allowing staff to easily view their work schedules.
 
-<img src="screenshots/monthly-calendar.png" width="200">
+<img src="screenshots/monthly-calendar.png" width="300">
 
 ## Project Status
 Personal development project currently undergoing testing and improvements.
